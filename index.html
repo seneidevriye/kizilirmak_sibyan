@@ -6,15 +6,15 @@
 <title>Yaz Sıbyan Talebemize Sponsorluk Panosu</title>
 <style>
   :root{
-    --ink:#0e2a45;          /* lacivert */
+    --ink:#0e2a45;
     --ink-soft:#1c3e5e;
-    --gold:#c79a3b;         /* altın */
+    --gold:#c79a3b;
     --gold-soft:#e3c578;
-    --cream:#f6efe2;        /* fildişi zemin */
+    --cream:#f6efe2;
     --cream-2:#efe5d2;
     --paper:#fffdf8;
     --line:#d8c9a8;
-    --filled:#16432e;       /* dolan kutucuk koyu yeşil */
+    --filled:#16432e;
     --filled-soft:#1f6043;
     --red:#b22222;
     --shadow:rgba(14,42,69,.16);
@@ -24,160 +24,131 @@
   body{
     font-family:'Segoe UI',-apple-system,system-ui,sans-serif;
     color:var(--ink);
-    background:
-      radial-gradient(1200px 500px at 50% -200px, #fbf6ec 0%, var(--cream) 55%, var(--cream-2) 100%);
+    background:radial-gradient(1200px 500px at 50% -200px,#fbf6ec 0%,var(--cream) 55%,var(--cream-2) 100%);
     min-height:100vh;
-    padding:0 0 60px;
+    padding:18px 0 40px;
   }
-  .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 18px}
 
-  /* ---- HERO ---- */
-  .hero{
-    position:relative;
-    text-align:center;
-    padding:46px 24px 30px;
-    margin-top:18px;
+  .layout{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    align-items:start;
+  }
+
+  .panel{
     background:var(--paper);
     border:1px solid var(--line);
-    border-radius:22px 22px 0 0;
-    border-bottom:none;
+    border-radius:18px;
+    box-shadow:0 10px 30px var(--shadow);
+    overflow:hidden;
+  }
+
+  /* ---- SOL: HERO ---- */
+  .hero{
+    position:relative;text-align:center;
+    padding:30px 22px 22px;
+    border-bottom:1px solid var(--cream-2);
     overflow:hidden;
   }
   .hero::before,.hero::after{
-    content:"";position:absolute;top:0;width:62px;height:100%;
-    background:
-      repeating-linear-gradient(0deg,transparent 0 16px,rgba(199,154,59,.18) 16px 17px),
+    content:"";position:absolute;top:0;width:40px;height:100%;
+    background:repeating-linear-gradient(0deg,transparent 0 16px,rgba(199,154,59,.16) 16px 17px),
       linear-gradient(180deg,rgba(199,154,59,.12),transparent 60%);
   }
-  .hero::before{left:0;border-right:1px solid rgba(199,154,59,.25)}
-  .hero::after{right:0;border-left:1px solid rgba(199,154,59,.25)}
-  .crescent{font-size:30px;color:var(--gold);line-height:1;margin-bottom:6px}
+  .hero::before{left:0;border-right:1px solid rgba(199,154,59,.22)}
+  .hero::after{right:0;border-left:1px solid rgba(199,154,59,.22)}
   .hero h1{
-    margin:0;
-    font-family:Georgia,'Times New Roman',serif;
-    font-weight:800;
-    letter-spacing:.5px;
-    line-height:1.04;
-    color:var(--ink);
-    font-size:clamp(30px,6vw,58px);
+    margin:0;font-family:Georgia,'Times New Roman',serif;font-weight:800;
+    letter-spacing:.4px;line-height:1.06;color:var(--ink);
+    font-size:clamp(22px,2.7vw,38px);
   }
   .hero h1 .sub{
-    display:block;
-    margin-top:10px;
-    font-size:clamp(20px,3.6vw,34px);
-    color:var(--gold);
-    letter-spacing:1px;
+    display:block;margin-top:8px;color:var(--gold);letter-spacing:.8px;
+    font-size:clamp(15px,1.7vw,23px);
   }
-  .diamond{margin:18px auto 0;width:42px;height:8px;color:var(--gold);
-    font-size:18px;letter-spacing:6px}
 
   /* ---- PAKETLER ---- */
   .packs{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
-    background:var(--paper);
-    border-left:1px solid var(--line);border-right:1px solid var(--line);
-    padding:6px 26px 30px;
+    display:grid;grid-template-columns:repeat(2,1fr);gap:10px;
+    padding:16px 18px;
   }
   .pack{
     background:linear-gradient(180deg,var(--ink),#0a2138);
-    border:1px solid rgba(199,154,59,.55);
-    border-radius:12px;
-    padding:14px 8px;
-    text-align:center;
-    box-shadow:0 6px 16px var(--shadow);
+    border:1px solid rgba(199,154,59,.5);border-radius:11px;
+    padding:11px 9px;text-align:center;box-shadow:0 5px 14px var(--shadow);
+    display:flex;flex-direction:column;justify-content:space-between;min-height:74px;
   }
-  .pack .qty{color:var(--gold-soft);font-size:13px;font-weight:700;letter-spacing:.5px}
-  .pack .amt{color:#fff;font-size:clamp(17px,2.4vw,24px);font-weight:800;margin-top:4px}
+  .pack .qty{color:var(--gold-soft);font-size:11px;font-weight:700;line-height:1.25}
+  .pack .amt{color:#fff;font-size:clamp(15px,1.6vw,20px);font-weight:800;margin-top:6px}
 
   /* ---- İHTİYAÇ LİSTESİ ---- */
-  .needs{
-    background:var(--paper);
-    border:1px solid var(--line);
-    border-top:none;
-    border-radius:0 0 22px 22px;
-    padding:8px 26px 34px;
-  }
+  .needs{padding:0 18px 22px}
   .needs h2{
     text-align:center;background:var(--ink);color:#fff;
-    font-size:clamp(15px,2.2vw,19px);letter-spacing:.5px;
-    margin:0 -26px 0;padding:14px 16px;
+    font-size:clamp(12px,1.4vw,15px);letter-spacing:.4px;
+    margin:0 -18px 0;padding:11px 14px;
   }
   .hadis{
-    font-style:italic;color:var(--ink-soft);
-    text-align:center;max-width:760px;margin:20px auto 6px;
-    line-height:1.55;font-size:15px;
+    font-style:italic;color:var(--ink-soft);text-align:center;
+    margin:14px 4px 4px;line-height:1.5;font-size:13px;
   }
   .hadis b{font-style:normal;color:var(--gold)}
-  table{width:100%;border-collapse:collapse;margin-top:14px;font-size:15px}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12.5px}
   thead th{
-    color:var(--ink);border-bottom:2px solid var(--gold);
-    text-align:left;padding:10px 8px;font-size:13px;letter-spacing:.4px
+    color:var(--ink);border-bottom:2px solid var(--gold);text-align:left;
+    padding:8px 6px;font-size:11px;letter-spacing:.3px;
   }
-  th.num,td.num{text-align:center;width:42px}
   th.right,td.right{text-align:right;white-space:nowrap}
-  tbody td{padding:11px 8px;border-bottom:1px solid var(--cream-2)}
+  th.num,td.num{text-align:center;width:26px}
+  tbody td{padding:8px 6px;border-bottom:1px solid var(--cream-2)}
   tbody tr:last-child td{border-bottom:none}
   td.name{font-weight:600}
   td.sum{font-weight:800}
   .totalrow{
     display:flex;justify-content:space-between;align-items:center;
-    margin-top:16px;padding:14px 16px;border-radius:10px;
+    margin-top:12px;padding:11px 14px;border-radius:9px;
     background:linear-gradient(90deg,var(--gold-soft),#f0dca6);
   }
-  .totalrow .lbl{color:var(--red);font-weight:800;letter-spacing:.4px}
-  .totalrow .val{color:var(--red);font-weight:800;font-size:20px}
+  .totalrow .lbl{color:var(--red);font-weight:800;font-size:13px;letter-spacing:.3px}
+  .totalrow .val{color:var(--red);font-weight:800;font-size:16px}
 
-  /* ---- PANO ---- */
-  .board{
-    margin-top:34px;background:var(--paper);
-    border:1px solid var(--line);border-radius:22px;
-    box-shadow:0 14px 40px var(--shadow);
-    overflow:hidden;
-  }
+  /* ---- SAĞ: PANO ---- */
   .board-head{
     background:linear-gradient(180deg,var(--ink),#0a2138);
-    color:#fff;padding:26px 26px 22px;text-align:center;position:relative;
+    color:#fff;padding:20px 22px 16px;text-align:center;
   }
-  .board-head .crescent{color:var(--gold-soft);font-size:22px;margin-bottom:4px}
   .board-head h2{margin:0;font-family:Georgia,serif;font-weight:800;
-    font-size:clamp(20px,3.4vw,30px)}
-  .board-head p{margin:8px 0 0;color:var(--gold-soft);font-size:14px;letter-spacing:.4px}
+    font-size:clamp(18px,2.2vw,26px)}
+  .board-head p{margin:6px 0 0;color:var(--gold-soft);font-size:13px;letter-spacing:.3px}
 
-  .progress{padding:22px 26px 6px}
+  .progress{padding:16px 22px 4px}
   .progress-top{
     display:flex;justify-content:space-between;align-items:flex-end;
-    margin-bottom:8px;flex-wrap:wrap;gap:6px
+    margin-bottom:7px;flex-wrap:wrap;gap:6px
   }
-  .progress-top .count{font-size:15px;color:var(--ink-soft)}
-  .progress-top .count b{color:var(--filled);font-size:22px}
-  .progress-top .raised{font-size:14px;color:var(--gold);font-weight:700}
-  .bar{height:14px;border-radius:10px;background:var(--cream-2);
-    overflow:hidden;border:1px solid var(--line)}
+  .progress-top .count{font-size:14px;color:var(--ink-soft)}
+  .progress-top .count b{color:var(--filled);font-size:20px}
+  .progress-top .raised{font-size:13px;color:var(--gold);font-weight:700}
+  .bar{height:12px;border-radius:9px;background:var(--cream-2);overflow:hidden;border:1px solid var(--line)}
   .bar>span{display:block;height:100%;width:0;
-    background:linear-gradient(90deg,var(--filled-soft),var(--filled));
-    transition:width .5s ease}
+    background:linear-gradient(90deg,var(--filled-soft),var(--filled));transition:width .5s ease}
 
-  .grid{
-    display:grid;grid-template-columns:repeat(10,1fr);gap:7px;
-    padding:20px 26px 8px;
-  }
+  .grid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;padding:16px 22px 6px}
   .cell{
-    position:relative;aspect-ratio:1/1;border-radius:9px;
+    position:relative;aspect-ratio:1/1;border-radius:7px;
     border:1px solid var(--line);
     background:linear-gradient(180deg,#fff,var(--cream));
-    display:flex;align-items:center;justify-content:center;
-    text-align:center;cursor:pointer;
-    font-size:11px;font-weight:700;color:var(--ink-soft);
-    padding:3px;line-height:1.1;
-    transition:transform .12s ease, box-shadow .12s ease, background .25s ease;
-    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    cursor:pointer;font-size:9.5px;font-weight:700;color:var(--ink-soft);
+    padding:2px;line-height:1.05;overflow:hidden;
+    transition:transform .12s ease,box-shadow .12s ease,background .25s ease;
   }
-  .cell:hover{transform:translateY(-2px);box-shadow:0 6px 14px var(--shadow);
-    border-color:var(--gold)}
-  .cell .idx{position:absolute;top:3px;left:5px;font-size:8px;color:var(--line);font-weight:600}
-  .cell .amt-tag{font-size:12px}
-  .cell .hint{font-size:8px;font-weight:600;color:var(--gold);
-    position:absolute;bottom:4px;opacity:0;transition:opacity .15s}
+  .cell:hover{transform:translateY(-2px);box-shadow:0 6px 14px var(--shadow);border-color:var(--gold)}
+  .cell .idx{position:absolute;top:2px;left:4px;font-size:7px;color:var(--line);font-weight:600}
+  .cell .amt-tag{font-size:10px}
+  .cell .hint{font-size:7px;font-weight:600;color:var(--gold);position:absolute;bottom:3px;opacity:0;transition:opacity .15s}
   .cell:hover .hint{opacity:1}
   .cell.filled{
     cursor:default;color:#fff;border-color:var(--filled-soft);
@@ -185,54 +156,45 @@
     box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
   }
   .cell.filled:hover{transform:none}
-  .cell.filled .name{
-    font-size:10px;font-weight:700;word-break:break-word;
-    display:flex;align-items:center;justify-content:center;height:100%
-  }
+  .cell.filled .name{font-size:8.5px;font-weight:700;word-break:break-word;
+    display:flex;align-items:center;justify-content:center;height:100%}
   .cell.filled .idx{color:rgba(255,255,255,.45)}
-  .cell.filled::after{content:"✓";position:absolute;bottom:3px;right:5px;
-    font-size:9px;color:var(--gold-soft)}
+  .cell.filled::after{content:"✓";position:absolute;bottom:2px;right:4px;font-size:8px;color:var(--gold-soft)}
   @keyframes pop{0%{transform:scale(.85)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
   .cell.justfilled{animation:pop .35s ease}
 
-  .board-foot{padding:8px 26px 26px;text-align:center;color:var(--ink-soft);font-size:13px}
-  .board-foot .done{color:var(--filled);font-weight:800;font-size:16px}
+  .board-foot{padding:6px 22px 20px;text-align:center;color:var(--ink-soft);font-size:12px}
+  .board-foot .done{color:var(--filled);font-weight:800;font-size:15px}
+  .topbar{display:flex;justify-content:flex-end;padding:0 6px 8px}
+  .mini{font-size:11px;color:var(--ink-soft);background:transparent;border:1px solid var(--line);
+    padding:6px 11px;border-radius:8px;cursor:pointer}
+  .mini:hover{border-color:var(--gold);color:var(--ink)}
 
   /* ---- MODAL ---- */
-  .overlay{
-    position:fixed;inset:0;background:rgba(14,42,69,.55);
-    display:none;align-items:center;justify-content:center;padding:20px;z-index:50;
-  }
+  .overlay{position:fixed;inset:0;background:rgba(14,42,69,.55);display:none;
+    align-items:center;justify-content:center;padding:20px;z-index:50}
   .overlay.open{display:flex}
-  .modal{
-    background:var(--paper);border-radius:18px;max-width:380px;width:100%;
-    padding:26px;border:1px solid var(--gold);box-shadow:0 24px 60px rgba(0,0,0,.3);
-    text-align:center;
-  }
-  .modal .crescent{color:var(--gold);font-size:24px}
-  .modal h3{margin:6px 0 2px;font-family:Georgia,serif;color:var(--ink)}
+  .modal{background:var(--paper);border-radius:18px;max-width:380px;width:100%;
+    padding:26px;border:1px solid var(--gold);box-shadow:0 24px 60px rgba(0,0,0,.3);text-align:center}
+  .modal h3{margin:0 0 2px;font-family:Georgia,serif;color:var(--ink)}
   .modal .box-no{color:var(--gold);font-weight:700;font-size:14px;margin-bottom:14px}
-  .modal label{display:block;text-align:left;font-size:13px;color:var(--ink-soft);
-    margin-bottom:6px;font-weight:600}
-  .modal input{width:100%;padding:12px 14px;border:1px solid var(--line);
-    border-radius:10px;font-size:15px;color:var(--ink);background:#fff;outline:none}
+  .modal label{display:block;text-align:left;font-size:13px;color:var(--ink-soft);margin-bottom:6px;font-weight:600}
+  .modal input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;
+    font-size:15px;color:var(--ink);background:#fff;outline:none}
   .modal input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(199,154,59,.18)}
   .modal .actions{display:flex;gap:10px;margin-top:18px}
-  .btn{flex:1;padding:12px;border:none;border-radius:10px;font-size:14px;
-    font-weight:700;cursor:pointer}
+  .btn{flex:1;padding:12px;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
   .btn-primary{background:var(--filled);color:#fff}
   .btn-primary:hover{background:var(--filled-soft)}
   .btn-ghost{background:transparent;color:var(--ink-soft);border:1px solid var(--line)}
   .btn-ghost:hover{background:var(--cream-2)}
   .note{font-size:11px;color:var(--ink-soft);margin-top:12px;line-height:1.4}
 
-  .topbar{display:flex;justify-content:flex-end;gap:10px;padding:14px 4px 0;flex-wrap:wrap}
-  .mini{font-size:12px;color:var(--ink-soft);background:transparent;border:1px solid var(--line);
-    padding:7px 12px;border-radius:8px;cursor:pointer}
-  .mini:hover{border-color:var(--gold);color:var(--ink)}
-
-  @media(max-width:640px){
-    .packs{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:900px){
+    .layout{grid-template-columns:1fr}
+  }
+  @media(max-width:520px){
+    .packs{grid-template-columns:1fr}
     .grid{grid-template-columns:repeat(5,1fr)}
     th.num,td.num{display:none}
   }
@@ -240,73 +202,69 @@
 </head>
 <body>
 <div class="wrap">
+  <div class="layout">
 
-  <!-- HERO -->
-  <div class="hero">
-    <h1>YAZ SIBYAN TALEBEMİZE
-      <span class="sub">SPONSOR OLUR MUSUNUZ</span>
-    </h1>
-  </div>
-
-  <!-- BAĞIŞ PAKETLERİ -->
-  <div class="packs">
-    <div class="pack"><div class="qty">100 ADET KUR'AN-I KERİM</div><div class="amt">50.000 ₺</div></div>
-    <div class="pack"><div class="qty">300 ADET KUR'AN HARF VE HAREKELERİ</div><div class="amt">7.000 ₺</div></div>
-    <div class="pack"><div class="qty">100 ADET KARABAŞ TECVİDİ</div><div class="amt">3.600 ₺</div></div>
-    <div class="pack"><div class="qty">300 ADET İLMİHALİM</div><div class="amt">30.000 ₺</div></div>
-  </div>
-
-  <!-- İHTİYAÇ LİSTESİ -->
-  <div class="needs">
-    <h2>TALEBELERİMİZİN DERS KİTAP İHTİYAÇ LİSTESİ</h2>
-    <p class="hadis"><b>Hadisi Şerif :</b> Cenabı Hak bir kulu hakkında hayır murad ettiği zaman o kimseyi insanların ihtiyaçlarını yerine getirmekte istimal eder.</p>
-    <table>
-      <thead>
-        <tr>
-          <th class="num">SN</th>
-          <th>ÜRÜN ADI</th>
-          <th class="right">ADET</th>
-          <th class="right">B.FİYAT</th>
-          <th class="right">YEKÜN</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td class="num">1</td><td class="name">KUR-AN'I KERİM</td><td class="right">70</td><td class="right">500,00 ₺</td><td class="right sum">35.000,00 ₺</td></tr>
-        <tr><td class="num">2</td><td class="name">MUHTASAR İLMİHAL</td><td class="right">70</td><td class="right">100,00 ₺</td><td class="right sum">7.000,00 ₺</td></tr>
-        <tr><td class="num">3</td><td class="name">İLMİHALİM (FAZİLET ÇOCUK)</td><td class="right">150</td><td class="right">100,00 ₺</td><td class="right sum">15.000,00 ₺</td></tr>
-        <tr><td class="num">4</td><td class="name">KARABAŞ TECVİDİ</td><td class="right">40</td><td class="right">45,00 ₺</td><td class="right sum">1.800,00 ₺</td></tr>
-        <tr><td class="num">5</td><td class="name">ELİF CÜZÜ (KÜÇÜK)</td><td class="right">150</td><td class="right">25,00 ₺</td><td class="right sum">3.750,00 ₺</td></tr>
-        <tr><td class="num">6</td><td class="name">TAKKE (MAKİNE ÖRME)</td><td class="right">80</td><td class="right">10,00 ₺</td><td class="right sum">800,00 ₺</td></tr>
-      </tbody>
-    </table>
-    <div class="totalrow">
-      <span class="lbl">TALEBELERİMİZİN İHTİYACI</span>
-      <span class="val">TOPLAM&nbsp;&nbsp;63.350,00 ₺</span>
-    </div>
-  </div>
-
-  <!-- PANO -->
-  <div class="topbar">
-    <button class="mini" id="resetBtn">Panoyu sıfırla</button>
-  </div>
-
-  <div class="board">
-    <div class="board-head">
-      <h2>Sponsorluk Panosu</h2>
-      <p>Her kutucuk bir hayır — 100 kutucuk, 750 ₺</p>
-    </div>
-
-    <div class="progress">
-      <div class="progress-top">
-        <span class="count"><b id="filledCount">0</b> / 100 kutucuk doldu</span>
-        <span class="raised" id="raised">0 ₺ toplandı</span>
+    <!-- ===== SOL SÜTUN ===== -->
+    <div class="panel">
+      <div class="hero">
+        <h1>YAZ SIBYAN TALEBEMİZE
+          <span class="sub">SPONSOR OLUR MUSUNUZ</span>
+        </h1>
       </div>
-      <div class="bar"><span id="barFill"></span></div>
+
+      <div class="packs">
+        <div class="pack"><div class="qty">100 ADET KUR'AN-I KERİM</div><div class="amt">50.000 ₺</div></div>
+        <div class="pack"><div class="qty">300 ADET KUR'AN HARF VE HAREKELERİ</div><div class="amt">7.000 ₺</div></div>
+        <div class="pack"><div class="qty">100 ADET KARABAŞ TECVİDİ</div><div class="amt">3.600 ₺</div></div>
+        <div class="pack"><div class="qty">300 ADET İLMİHALİM</div><div class="amt">30.000 ₺</div></div>
+      </div>
+
+      <div class="needs">
+        <h2>TALEBELERİMİZİN DERS KİTAP İHTİYAÇ LİSTESİ</h2>
+        <p class="hadis"><b>Hadisi Şerif :</b> Cenabı Hak bir kulu hakkında hayır murad ettiği zaman o kimseyi insanların ihtiyaçlarını yerine getirmekte istimal eder.</p>
+        <table>
+          <thead>
+            <tr>
+              <th class="num">SN</th><th>ÜRÜN ADI</th>
+              <th class="right">ADET</th><th class="right">B.FİYAT</th><th class="right">YEKÜN</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="num">1</td><td class="name">KUR-AN'I KERİM</td><td class="right">70</td><td class="right">500,00 ₺</td><td class="right sum">35.000,00 ₺</td></tr>
+            <tr><td class="num">2</td><td class="name">MUHTASAR İLMİHAL</td><td class="right">70</td><td class="right">100,00 ₺</td><td class="right sum">7.000,00 ₺</td></tr>
+            <tr><td class="num">3</td><td class="name">İLMİHALİM (FAZİLET ÇOCUK)</td><td class="right">150</td><td class="right">100,00 ₺</td><td class="right sum">15.000,00 ₺</td></tr>
+            <tr><td class="num">4</td><td class="name">KARABAŞ TECVİDİ</td><td class="right">40</td><td class="right">45,00 ₺</td><td class="right sum">1.800,00 ₺</td></tr>
+            <tr><td class="num">5</td><td class="name">ELİF CÜZÜ (KÜÇÜK)</td><td class="right">150</td><td class="right">25,00 ₺</td><td class="right sum">3.750,00 ₺</td></tr>
+            <tr><td class="num">6</td><td class="name">TAKKE (MAKİNE ÖRME)</td><td class="right">80</td><td class="right">10,00 ₺</td><td class="right sum">800,00 ₺</td></tr>
+          </tbody>
+        </table>
+        <div class="totalrow">
+          <span class="lbl">TALEBELERİMİZİN İHTİYACI</span>
+          <span class="val">TOPLAM&nbsp;&nbsp;63.350,00 ₺</span>
+        </div>
+      </div>
     </div>
 
-    <div class="grid" id="grid"></div>
+    <!-- ===== SAĞ SÜTUN ===== -->
+    <div>
+      <div class="topbar"><button class="mini" id="resetBtn">Panoyu sıfırla</button></div>
+      <div class="panel">
+        <div class="board-head">
+          <h2>Sponsorluk Panosu</h2>
+          <p>Her kutucuk bir hayır — 100 kutucuk, 750 ₺</p>
+        </div>
+        <div class="progress">
+          <div class="progress-top">
+            <span class="count"><b id="filledCount">0</b> / 100 kutucuk doldu</span>
+            <span class="raised" id="raised">0 ₺ toplandı</span>
+          </div>
+          <div class="bar"><span id="barFill"></span></div>
+        </div>
+        <div class="grid" id="grid"></div>
+        <div class="board-foot" id="foot">Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz.</div>
+      </div>
+    </div>
 
-    <div class="board-foot" id="foot">Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz.</div>
   </div>
 </div>
 
@@ -326,107 +284,74 @@
 </div>
 
 <script>
-const TOTAL = 100;
-const AMOUNT = 750;
-const KEY = "sponsor-board-v1";
-const grid = document.getElementById('grid');
-const overlay = document.getElementById('overlay');
-const nameInput = document.getElementById('nameInput');
-const boxNo = document.getElementById('boxNo');
-let data = {};      // {index: name}
-let activeCell = null;
+const TOTAL=100, AMOUNT=750, KEY="sponsor-board-v1";
+const grid=document.getElementById('grid');
+const overlay=document.getElementById('overlay');
+const nameInput=document.getElementById('nameInput');
+const boxNo=document.getElementById('boxNo');
+let data={}, activeCell=null;
 
 async function load(){
-  try{
-    const res = await window.storage.get(KEY, true);
-    data = res && res.value ? JSON.parse(res.value) : {};
-  }catch(e){ data = {}; }
+  try{const res=await window.storage.get(KEY,true);data=res&&res.value?JSON.parse(res.value):{};}
+  catch(e){data={};}
   render();
 }
 async function save(){
-  try{ await window.storage.set(KEY, JSON.stringify(data), true); }
-  catch(e){ console.error("kayıt hatası", e); }
+  try{await window.storage.set(KEY,JSON.stringify(data),true);}
+  catch(e){console.error("kayıt hatası",e);}
 }
-
 function render(){
-  grid.innerHTML = "";
-  let filled = 0;
+  grid.innerHTML="";let filled=0;
   for(let i=1;i<=TOTAL;i++){
-    const cell = document.createElement('div');
-    cell.className = "cell";
-    const name = data[i];
+    const cell=document.createElement('div');cell.className="cell";
+    const name=data[i];
     if(name){
-      filled++;
-      cell.classList.add('filled');
-      cell.innerHTML = `<span class="idx">${i}</span><span class="name">${escapeHtml(name)}</span>`;
+      filled++;cell.classList.add('filled');
+      cell.innerHTML=`<span class="idx">${i}</span><span class="name">${escapeHtml(name)}</span>`;
     }else{
-      cell.innerHTML = `<span class="idx">${i}</span><span class="amt-tag">750 ₺</span><span class="hint">sponsor ol</span>`;
+      cell.innerHTML=`<span class="idx">${i}</span><span class="amt-tag">750 ₺</span><span class="hint">sponsor ol</span>`;
       cell.addEventListener('click',()=>openModal(i,cell));
     }
     grid.appendChild(cell);
   }
-  document.getElementById('filledCount').textContent = filled;
-  document.getElementById('raised').textContent =
-    (filled*AMOUNT).toLocaleString('tr-TR') + " ₺ toplandı";
-  document.getElementById('barFill').style.width = (filled/TOTAL*100) + "%";
-  const foot = document.getElementById('foot');
-  if(filled>=TOTAL){
-    foot.innerHTML = '<span class="done">Pano doldu — Allah razı olsun. 🤍</span>';
-  }else{
-    foot.textContent = "Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz.";
-  }
+  document.getElementById('filledCount').textContent=filled;
+  document.getElementById('raised').textContent=(filled*AMOUNT).toLocaleString('tr-TR')+" ₺ toplandı";
+  document.getElementById('barFill').style.width=(filled/TOTAL*100)+"%";
+  const foot=document.getElementById('foot');
+  if(filled>=TOTAL){foot.innerHTML='<span class="done">Pano doldu — Allah razı olsun. 🤍</span>';}
+  else{foot.textContent="Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz.";}
 }
-
-function openModal(i,cell){
-  activeCell = {i,cell};
-  boxNo.textContent = `Kutucuk #${i} — 750 ₺`;
-  nameInput.value = "";
-  overlay.classList.add('open');
-  setTimeout(()=>nameInput.focus(),50);
+function openModal(i){
+  activeCell={i};boxNo.textContent=`Kutucuk #${i} — 750 ₺`;nameInput.value="";
+  overlay.classList.add('open');setTimeout(()=>nameInput.focus(),50);
 }
-function closeModal(){ overlay.classList.remove('open'); activeCell=null; }
-
+function closeModal(){overlay.classList.remove('open');activeCell=null;}
 async function confirmFill(){
-  if(!activeCell) return;
-  const name = nameInput.value.trim();
-  if(!name){ nameInput.focus(); return; }
-  // çakışma kontrolü: bu sırada başkası doldurmuş olabilir
+  if(!activeCell)return;
+  const name=nameInput.value.trim();
+  if(!name){nameInput.focus();return;}
   await load2silent();
   if(data[activeCell.i]){
     alert("Bu kutucuk az önce başkası tarafından dolduruldu. Lütfen başka bir kutucuk seçin.");
-    closeModal(); render(); return;
+    closeModal();render();return;
   }
-  data[activeCell.i] = name;
-  await save();
-  const idx = activeCell.i;
-  closeModal();
-  render();
-  const filledCell = grid.children[idx-1];
-  if(filledCell){ filledCell.classList.add('justfilled');
-    setTimeout(()=>filledCell.classList.remove('justfilled'),400); }
+  data[activeCell.i]=name;await save();
+  const idx=activeCell.i;closeModal();render();
+  const fc=grid.children[idx-1];
+  if(fc){fc.classList.add('justfilled');setTimeout(()=>fc.classList.remove('justfilled'),400);}
 }
-
 async function load2silent(){
-  try{
-    const res = await window.storage.get(KEY, true);
-    data = res && res.value ? JSON.parse(res.value) : data;
-  }catch(e){}
+  try{const res=await window.storage.get(KEY,true);data=res&&res.value?JSON.parse(res.value):data;}catch(e){}
 }
-
-function escapeHtml(s){
-  return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
 document.getElementById('confirmBtn').addEventListener('click',confirmFill);
 document.getElementById('cancelBtn').addEventListener('click',closeModal);
-overlay.addEventListener('click',e=>{ if(e.target===overlay) closeModal(); });
-nameInput.addEventListener('keydown',e=>{ if(e.key==='Enter') confirmFill(); });
+overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal();});
+nameInput.addEventListener('keydown',e=>{if(e.key==='Enter')confirmFill();});
 document.getElementById('resetBtn').addEventListener('click',async()=>{
-  if(confirm("Tüm pano sıfırlanacak ve isimler silinecek. Emin misiniz?")){
-    data = {}; await save(); render();
-  }
+  if(confirm("Tüm pano sıfırlanacak ve isimler silinecek. Emin misiniz?")){data={};await save();render();}
 });
-
 load();
 </script>
 </body>

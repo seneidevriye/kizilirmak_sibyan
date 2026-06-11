@@ -188,6 +188,8 @@
   .btn-primary:hover{background:var(--filled-soft)}
   .btn-ghost{background:transparent;color:var(--ink-soft);border:1px solid var(--line)}
   .btn-ghost:hover{background:var(--cream-2)}
+  .btn-danger{background:transparent;color:var(--red);border:1px solid var(--red)}
+  .btn-danger:hover{background:var(--red);color:#fff}
   .note{font-size:11px;color:var(--ink-soft);margin-top:12px;line-height:1.4}
 
   @media(max-width:900px){
@@ -271,11 +273,12 @@
 <!-- MODAL -->
 <div class="overlay" id="overlay">
   <div class="modal">
-    <h3>Sponsor Ol</h3>
+    <h3 id="modalTitle">Sponsor Ol</h3>
     <div class="box-no" id="boxNo">Kutucuk #1 — 750 ₺</div>
     <label for="nameInput">Adınız / Kuruluş adınız</label>
     <input id="nameInput" type="text" maxlength="40" placeholder="Örn. Ahmet Y." autocomplete="off">
     <div class="actions">
+      <button class="btn btn-danger" id="deleteBtn" style="display:none">Sil</button>
       <button class="btn btn-ghost" id="cancelBtn">Vazgeç</button>
       <button class="btn btn-primary" id="confirmBtn">Kaydet</button>
     </div>
@@ -308,6 +311,8 @@ function render(){
     if(name){
       filled++;cell.classList.add('filled');
       cell.innerHTML=`<span class="idx">${i}</span><span class="name">${escapeHtml(name)}</span>`;
+      cell.title="Düzenle / sil";
+      cell.addEventListener('click',()=>openEdit(i));
     }else{
       cell.innerHTML=`<span class="idx">${i}</span><span class="amt-tag">750 ₺</span><span class="hint">sponsor ol</span>`;
       cell.addEventListener('click',()=>openModal(i,cell));
@@ -322,16 +327,40 @@ function render(){
   else{foot.textContent="Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz.";}
 }
 function openModal(i){
-  activeCell={i};boxNo.textContent=`Kutucuk #${i} — 750 ₺`;nameInput.value="";
+  activeCell={i};
+  document.getElementById('modalTitle').textContent="Sponsor Ol";
+  boxNo.textContent=`Kutucuk #${i} — 750 ₺`;
+  nameInput.value="";
+  document.getElementById('deleteBtn').style.display="none";
+  document.getElementById('confirmBtn').textContent="Kaydet";
   overlay.classList.add('open');setTimeout(()=>nameInput.focus(),50);
 }
+function openEdit(i){
+  activeCell={i,edit:true};
+  document.getElementById('modalTitle').textContent="İsmi Düzenle";
+  boxNo.textContent=`Kutucuk #${i} — 750 ₺`;
+  nameInput.value=data[i]||"";
+  document.getElementById('deleteBtn').style.display="block";
+  document.getElementById('confirmBtn').textContent="Güncelle";
+  overlay.classList.add('open');
+  setTimeout(()=>{nameInput.focus();nameInput.select();},50);
+}
 function closeModal(){overlay.classList.remove('open');activeCell=null;}
+async function deleteFill(){
+  if(!activeCell)return;
+  if(!confirm("Bu kutucuktaki isim silinecek ve kutucuk tekrar boşalacak. Emin misiniz?"))return;
+  await load2silent();
+  delete data[activeCell.i];
+  await save();
+  closeModal();render();
+}
 async function confirmFill(){
   if(!activeCell)return;
   const name=nameInput.value.trim();
   if(!name){nameInput.focus();return;}
   await load2silent();
-  if(data[activeCell.i]){
+  // yeni ekleme sırasında çakışma kontrolü (düzenlemede değil)
+  if(!activeCell.edit && data[activeCell.i]){
     alert("Bu kutucuk az önce başkası tarafından dolduruldu. Lütfen başka bir kutucuk seçin.");
     closeModal();render();return;
   }
@@ -346,6 +375,7 @@ async function load2silent(){
 function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
 document.getElementById('confirmBtn').addEventListener('click',confirmFill);
+document.getElementById('deleteBtn').addEventListener('click',deleteFill);
 document.getElementById('cancelBtn').addEventListener('click',closeModal);
 overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal();});
 nameInput.addEventListener('keydown',e=>{if(e.key==='Enter')confirmFill();});

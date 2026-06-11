@@ -28,12 +28,12 @@
     min-height:100vh;
     padding:18px 0 40px;
   }
-  .wrap{max-width:1240px;margin:0 auto;padding:0 18px}
+  .wrap{max-width:1480px;margin:0 auto;padding:0 22px}
 
   .layout{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:18px;
+    gap:22px;
     align-items:start;
   }
 
@@ -48,7 +48,7 @@
   /* ---- SOL: HERO ---- */
   .hero{
     position:relative;text-align:center;
-    padding:30px 22px 22px;
+    padding:36px 24px 26px;
     border-bottom:1px solid var(--cream-2);
     overflow:hidden;
   }
@@ -62,113 +62,118 @@
   .hero h1{
     margin:0;font-family:Georgia,'Times New Roman',serif;font-weight:800;
     letter-spacing:.4px;line-height:1.06;color:var(--ink);
-    font-size:clamp(22px,2.7vw,38px);
+    font-size:clamp(26px,2.9vw,44px);
   }
   .hero h1 .sub{
-    display:block;margin-top:8px;color:var(--gold);letter-spacing:.8px;
-    font-size:clamp(15px,1.7vw,23px);
+    display:block;margin-top:9px;color:var(--gold);letter-spacing:.8px;
+    font-size:clamp(17px,1.9vw,27px);
   }
 
   /* ---- PAKETLER ---- */
   .packs{
-    display:grid;grid-template-columns:repeat(2,1fr);gap:10px;
-    padding:16px 18px;
+    display:grid;grid-template-columns:repeat(2,1fr);gap:12px;
+    padding:18px 20px;
   }
   .pack{
     background:linear-gradient(180deg,var(--ink),#0a2138);
     border:1px solid rgba(199,154,59,.5);border-radius:11px;
-    padding:11px 9px;text-align:center;box-shadow:0 5px 14px var(--shadow);
-    display:flex;flex-direction:column;justify-content:space-between;min-height:74px;
+    padding:13px 11px;text-align:center;box-shadow:0 5px 14px var(--shadow);
+    display:flex;flex-direction:column;justify-content:space-between;min-height:84px;
   }
-  .pack .qty{color:var(--gold-soft);font-size:11px;font-weight:700;line-height:1.25}
-  .pack .amt{color:#fff;font-size:clamp(15px,1.6vw,20px);font-weight:800;margin-top:6px}
+  .pack .qty{color:var(--gold-soft);font-size:12px;font-weight:700;line-height:1.3}
+  .pack .amt{color:#fff;font-size:clamp(17px,1.8vw,23px);font-weight:800;margin-top:7px}
 
   /* ---- İHTİYAÇ LİSTESİ ---- */
-  .needs{padding:0 18px 22px}
+  .needs{padding:0 20px 24px}
   .needs h2{
     text-align:center;background:var(--ink);color:#fff;
-    font-size:clamp(12px,1.4vw,15px);letter-spacing:.4px;
-    margin:0 -18px 0;padding:11px 14px;
+    font-size:clamp(13px,1.5vw,17px);letter-spacing:.4px;
+    margin:0 -20px 0;padding:13px 16px;
   }
   .hadis{
     font-style:italic;color:var(--ink-soft);text-align:center;
-    margin:14px 4px 4px;line-height:1.5;font-size:13px;
+    margin:16px 4px 4px;line-height:1.55;font-size:14px;
   }
   .hadis b{font-style:normal;color:var(--gold)}
-  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12.5px}
+  table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
   thead th{
     color:var(--ink);border-bottom:2px solid var(--gold);text-align:left;
-    padding:8px 6px;font-size:11px;letter-spacing:.3px;
+    padding:9px 7px;font-size:12px;letter-spacing:.3px;
   }
   th.right,td.right{text-align:right;white-space:nowrap}
-  th.num,td.num{text-align:center;width:26px}
-  tbody td{padding:8px 6px;border-bottom:1px solid var(--cream-2)}
+  th.num,td.num{text-align:center;width:30px}
+  tbody td{padding:10px 7px;border-bottom:1px solid var(--cream-2)}
   tbody tr:last-child td{border-bottom:none}
   td.name{font-weight:600}
   td.sum{font-weight:800}
   .totalrow{
     display:flex;justify-content:space-between;align-items:center;
-    margin-top:12px;padding:11px 14px;border-radius:9px;
+    margin-top:14px;padding:13px 16px;border-radius:9px;
     background:linear-gradient(90deg,var(--gold-soft),#f0dca6);
   }
-  .totalrow .lbl{color:var(--red);font-weight:800;font-size:13px;letter-spacing:.3px}
-  .totalrow .val{color:var(--red);font-weight:800;font-size:16px}
+  .totalrow .lbl{color:var(--red);font-weight:800;font-size:14px;letter-spacing:.3px}
+  .totalrow .val{color:var(--red);font-weight:800;font-size:18px}
 
   /* ---- SAĞ: PANO ---- */
   .board-head{
     background:linear-gradient(180deg,var(--ink),#0a2138);
-    color:#fff;padding:20px 22px 16px;text-align:center;
+    color:#fff;padding:24px 24px 18px;text-align:center;position:relative;
   }
+  .reset-btn{
+    position:absolute;top:14px;right:14px;
+    width:32px;height:32px;border-radius:8px;
+    background:rgba(255,255,255,.08);color:var(--gold-soft);
+    border:1px solid rgba(199,154,59,.4);cursor:pointer;
+    font-size:16px;line-height:1;display:flex;align-items:center;justify-content:center;
+    transition:background .15s,color .15s;
+  }
+  .reset-btn:hover{background:rgba(199,154,59,.25);color:#fff}
   .board-head h2{margin:0;font-family:Georgia,serif;font-weight:800;
-    font-size:clamp(18px,2.2vw,26px)}
-  .board-head p{margin:6px 0 0;color:var(--gold-soft);font-size:13px;letter-spacing:.3px}
+    font-size:clamp(20px,2.4vw,30px)}
+  .board-head p{margin:7px 0 0;color:var(--gold-soft);font-size:14px;letter-spacing:.3px}
 
-  .progress{padding:16px 22px 4px}
+  .progress{padding:18px 24px 4px}
   .progress-top{
     display:flex;justify-content:space-between;align-items:flex-end;
-    margin-bottom:7px;flex-wrap:wrap;gap:6px
+    margin-bottom:8px;flex-wrap:wrap;gap:6px
   }
-  .progress-top .count{font-size:14px;color:var(--ink-soft)}
-  .progress-top .count b{color:var(--filled);font-size:20px}
-  .progress-top .raised{font-size:13px;color:var(--gold);font-weight:700}
-  .bar{height:12px;border-radius:9px;background:var(--cream-2);overflow:hidden;border:1px solid var(--line)}
+  .progress-top .count{font-size:15px;color:var(--ink-soft)}
+  .progress-top .count b{color:var(--filled);font-size:22px}
+  .progress-top .raised{font-size:14px;color:var(--gold);font-weight:700}
+  .bar{height:13px;border-radius:9px;background:var(--cream-2);overflow:hidden;border:1px solid var(--line)}
   .bar>span{display:block;height:100%;width:0;
     background:linear-gradient(90deg,var(--filled-soft),var(--filled));transition:width .5s ease}
 
-  .grid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;padding:16px 22px 6px}
+  .grid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;padding:18px 24px 8px}
   .cell{
-    position:relative;aspect-ratio:1/1;border-radius:7px;
+    position:relative;aspect-ratio:1/1;border-radius:8px;
     border:1px solid var(--line);
     background:linear-gradient(180deg,#fff,var(--cream));
     display:flex;align-items:center;justify-content:center;text-align:center;
-    cursor:pointer;font-size:9.5px;font-weight:700;color:var(--ink-soft);
-    padding:2px;line-height:1.05;overflow:hidden;
+    cursor:pointer;font-size:11px;font-weight:700;color:var(--ink-soft);
+    padding:3px;line-height:1.05;overflow:hidden;
     transition:transform .12s ease,box-shadow .12s ease,background .25s ease;
   }
   .cell:hover{transform:translateY(-2px);box-shadow:0 6px 14px var(--shadow);border-color:var(--gold)}
-  .cell .idx{position:absolute;top:2px;left:4px;font-size:7px;color:var(--line);font-weight:600}
-  .cell .amt-tag{font-size:10px}
-  .cell .hint{font-size:7px;font-weight:600;color:var(--gold);position:absolute;bottom:3px;opacity:0;transition:opacity .15s}
+  .cell .idx{position:absolute;top:3px;left:5px;font-size:8px;color:var(--line);font-weight:600}
+  .cell .amt-tag{font-size:12px}
+  .cell .hint{font-size:8px;font-weight:600;color:var(--gold);position:absolute;bottom:4px;opacity:0;transition:opacity .15s}
   .cell:hover .hint{opacity:1}
   .cell.filled{
-    cursor:default;color:#fff;border-color:var(--filled-soft);
+    cursor:pointer;color:#fff;border-color:var(--filled-soft);
     background:linear-gradient(160deg,var(--filled-soft),var(--filled));
     box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
   }
-  .cell.filled:hover{transform:none}
-  .cell.filled .name{font-size:8.5px;font-weight:700;word-break:break-word;
+  .cell.filled:hover{transform:translateY(-2px);box-shadow:0 6px 14px var(--shadow)}
+  .cell.filled .name{font-size:9.5px;font-weight:700;word-break:break-word;
     display:flex;align-items:center;justify-content:center;height:100%}
   .cell.filled .idx{color:rgba(255,255,255,.45)}
-  .cell.filled::after{content:"✓";position:absolute;bottom:2px;right:4px;font-size:8px;color:var(--gold-soft)}
+  .cell.filled::after{content:"✓";position:absolute;bottom:3px;right:5px;font-size:9px;color:var(--gold-soft)}
   @keyframes pop{0%{transform:scale(.85)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
   .cell.justfilled{animation:pop .35s ease}
 
-  .board-foot{padding:6px 22px 20px;text-align:center;color:var(--ink-soft);font-size:12px}
-  .board-foot .done{color:var(--filled);font-weight:800;font-size:15px}
-  .topbar{display:flex;justify-content:flex-end;padding:0 6px 8px}
-  .mini{font-size:11px;color:var(--ink-soft);background:transparent;border:1px solid var(--line);
-    padding:6px 11px;border-radius:8px;cursor:pointer}
-  .mini:hover{border-color:var(--gold);color:var(--ink)}
+  .board-foot{padding:8px 24px 22px;text-align:center;color:var(--ink-soft);font-size:13px}
+  .board-foot .done{color:var(--filled);font-weight:800;font-size:16px}
 
   /* ---- MODAL ---- */
   .overlay{position:fixed;inset:0;background:rgba(14,42,69,.55);display:none;
@@ -248,23 +253,21 @@
     </div>
 
     <!-- ===== SAĞ SÜTUN ===== -->
-    <div>
-      <div class="topbar"><button class="mini" id="resetBtn">Panoyu sıfırla</button></div>
-      <div class="panel">
-        <div class="board-head">
-          <h2>Sponsorluk Panosu</h2>
-          <p>Her kutucuk bir hayır — 100 kutucuk, 750 ₺</p>
-        </div>
-        <div class="progress">
-          <div class="progress-top">
-            <span class="count"><b id="filledCount">0</b> / 100 kutucuk doldu</span>
-            <span class="raised" id="raised">0 ₺ toplandı</span>
-          </div>
-          <div class="bar"><span id="barFill"></span></div>
-        </div>
-        <div class="grid" id="grid"></div>
-        <div class="board-foot" id="foot">Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz.</div>
+    <div class="panel">
+      <div class="board-head">
+        <button class="reset-btn" id="resetBtn" title="Panoyu sıfırla">⟳</button>
+        <h2>Sponsorluk Panosu</h2>
+        <p>Her kutucuk bir hayır — 100 kutucuk, 750 ₺</p>
       </div>
+      <div class="progress">
+        <div class="progress-top">
+          <span class="count"><b id="filledCount">0</b> / 100 kutucuk doldu</span>
+          <span class="raised" id="raised">0 ₺ toplandı</span>
+        </div>
+        <div class="bar"><span id="barFill"></span></div>
+      </div>
+      <div class="grid" id="grid"></div>
+      <div class="board-foot" id="foot">Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz.</div>
     </div>
 
   </div>

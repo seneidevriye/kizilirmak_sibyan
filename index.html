@@ -176,6 +176,67 @@
   .board-foot{padding:8px 24px 22px;text-align:center;color:var(--ink-soft);font-size:13px}
   .board-foot .done{color:var(--filled);font-weight:800;font-size:16px}
 
+  /* ---- 5 SÜTUNLU PANO ---- */
+  .multi-panel{margin-top:22px}
+
+  .columns{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:0;
+    padding:0;
+  }
+  .column{
+    display:flex;flex-direction:column;
+    border-right:1px solid var(--cream-2);
+  }
+  .column:last-child{border-right:none}
+  .col-head{
+    background:transparent;color:var(--ink);text-align:center;
+    padding:16px 8px 10px;position:relative;
+    border-bottom:2px solid var(--gold);
+  }
+  .col-head .reset-btn{
+    top:10px;right:8px;width:24px;height:24px;font-size:12px;
+    background:rgba(14,42,69,.06);color:var(--gold);border-color:rgba(199,154,59,.4);
+  }
+  .col-head .reset-btn:hover{background:rgba(199,154,59,.2);color:var(--ink)}
+  .col-head .col-title{
+    font-family:Georgia,serif;font-weight:800;font-size:13px;line-height:1.2;color:var(--ink);
+    min-height:32px;display:flex;align-items:center;justify-content:center;padding:0 18px;
+  }
+  .col-head .col-price{color:var(--gold);font-size:12px;font-weight:700;margin-top:4px}
+  .col-count{
+    text-align:center;font-size:12px;color:var(--ink-soft);
+    padding:8px 6px 4px;border-bottom:1px solid var(--cream-2);
+  }
+  .col-count b{color:var(--filled);font-weight:800}
+  .col-rows{display:flex;flex-direction:column;gap:5px;padding:10px 10px 16px}
+  .row-cell{
+    position:relative;min-height:34px;border-radius:7px;
+    border:1px solid var(--line);
+    background:linear-gradient(180deg,#fff,var(--cream));
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    cursor:pointer;font-size:11px;font-weight:700;color:var(--ink-soft);
+    padding:4px 22px 4px 22px;line-height:1.1;overflow:hidden;
+    transition:transform .12s ease,box-shadow .12s ease,background .25s ease;
+  }
+  .row-cell:hover{transform:translateY(-1px);box-shadow:0 5px 12px var(--shadow);border-color:var(--gold)}
+  .row-cell .ridx{position:absolute;top:50%;left:6px;transform:translateY(-50%);
+    font-size:9px;color:var(--line);font-weight:600}
+  .row-cell .ramt{font-size:11px;font-weight:800;color:var(--ink-soft);transition:opacity .15s}
+  .row-cell .rhint{font-size:9px;font-weight:600;color:var(--gold);opacity:0;
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);transition:opacity .15s}
+  .row-cell:hover .ramt{opacity:0}
+  .row-cell:hover .rhint{opacity:1}
+  .row-cell.filled{
+    color:#fff;border-color:var(--filled-soft);
+    background:linear-gradient(160deg,var(--filled-soft),var(--filled));
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .row-cell.filled .rname{font-size:10px;font-weight:700;word-break:break-word}
+  .row-cell.filled .ridx{color:rgba(255,255,255,.45)}
+  .row-cell.filled::after{content:"✓";position:absolute;top:50%;right:6px;
+    transform:translateY(-50%);font-size:9px;color:var(--gold-soft)}
+  .row-cell.justfilled{animation:pop .35s ease}
+
   /* ---- MODAL ---- */
   .overlay{position:fixed;inset:0;background:rgba(14,42,69,.55);display:none;
     align-items:center;justify-content:center;padding:20px;z-index:50}
@@ -200,11 +261,16 @@
 
   @media(max-width:900px){
     .layout{grid-template-columns:1fr}
+    .columns{grid-template-columns:1fr;gap:0}
+    .column{border-right:none;border-bottom:1px solid var(--cream-2)}
+    .column:last-child{border-bottom:none}
+    .col-rows{display:grid;grid-template-columns:repeat(2,1fr)}
   }
   @media(max-width:520px){
     .packs{grid-template-columns:1fr}
     .grid{grid-template-columns:repeat(5,1fr)}
     th.num,td.num{display:none}
+    .col-rows{grid-template-columns:1fr}
   }
 </style>
 </head>
@@ -274,27 +340,26 @@
         <div class="board-foot" data-foot="main">Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz.</div>
       </div>
 
-      <!-- PANO 2: Kur'an-ı Kerim -->
-      <div class="panel">
-        <div class="board-head">
-          <button class="reset-btn" data-reset="quran" title="Panoyu sıfırla">⟳</button>
-          <h2>Kur'an-ı Kerim Panosu</h2>
-          <p>Her kutucuk bir Kur'an-ı Kerim — 50 kutucuk, 500 ₺</p>
-        </div>
-        <div class="progress">
-          <div class="progress-top">
-            <span class="count"><b data-count="quran">0</b> / 50 kutucuk doldu</span>
-            <span class="raised" data-raised="quran">0 ₺ toplandı</span>
-          </div>
-          <div class="bar"><span data-bar="quran"></span></div>
-        </div>
-        <div class="grid" data-grid="quran"></div>
-        <div class="board-foot" data-foot="quran">Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz.</div>
-      </div>
-
     </div>
 
   </div>
+
+  <!-- ===== 5 SÜTUNLU PANO (TAM GENİŞLİK) ===== -->
+  <div class="panel multi-panel">
+    <div class="board-head">
+      <h2>Kitap Bağış Panosu</h2>
+      <p>Her satır bir bağış — dilediğiniz sütundan boş bir satıra ismini yazın</p>
+    </div>
+    <div class="progress">
+      <div class="progress-top">
+        <span class="count"><b data-count="multi">0</b> / 100 satır doldu</span>
+        <span class="raised" data-raised="multi">0 ₺ toplandı</span>
+      </div>
+      <div class="bar"><span data-bar="multi"></span></div>
+    </div>
+    <div class="columns" id="columns" style="margin-top:16px;border-top:1px solid var(--cream-2)"></div>
+  </div>
+
 </div>
 
 <!-- MODAL -->
@@ -318,14 +383,11 @@ const overlay=document.getElementById('overlay');
 const nameInput=document.getElementById('nameInput');
 const boxNo=document.getElementById('boxNo');
 
-// Her pano için yapılandırma
+/* ===== ANA PANO ===== */
 const boards={
   main:{ total:100, amount:750, key:"sponsor-board-v1",
-         label:"Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz." },
-  quran:{ total:50, amount:500, key:"sponsor-board-quran-v1",
-          label:"Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz." }
+         label:"Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz." }
 };
-// çalışma durumu
 for(const id in boards){
   const b=boards[id];
   b.id=id;
@@ -336,14 +398,28 @@ for(const id in boards){
   b.barEl=document.querySelector(`[data-bar="${id}"]`);
   b.footEl=document.querySelector(`[data-foot="${id}"]`);
 }
+
+/* ===== 5 SÜTUNLU PANO ===== */
+const columnsDef=[
+  { id:"kuran",   title:"Kur'an-ı Kerim",        amount:1000, rows:20, key:"col-kuran-v1" },
+  { id:"harf",    title:"Kur'an Harf ve Harekeleri", amount:500,  rows:20, key:"col-harf-v1" },
+  { id:"ilmihal", title:"İlmihalim",             amount:500,  rows:20, key:"col-ilmihal-v1" },
+  { id:"karabas", title:"Karabaş Tecvidi",       amount:500,  rows:20, key:"col-karabas-v1" },
+  { id:"takke",   title:"Takke",                 amount:500,  rows:20, key:"col-takke-v1" }
+];
+const multiCountEl=document.querySelector('[data-count="multi"]');
+const multiRaisedEl=document.querySelector('[data-raised="multi"]');
+const multiBarEl=document.querySelector('[data-bar="multi"]');
+
 let activeBoard=null, activeCell=null;
 
 function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
+/* ---- storage helpers ---- */
 async function loadBoard(b){
   try{const res=await window.storage.get(b.key,true);b.data=res&&res.value?JSON.parse(res.value):{};}
   catch(e){b.data={};}
-  render(b);
+  renderMain(b);
 }
 async function saveBoard(b){
   try{await window.storage.set(b.key,JSON.stringify(b.data),true);}
@@ -353,7 +429,8 @@ async function reloadSilent(b){
   try{const res=await window.storage.get(b.key,true);b.data=res&&res.value?JSON.parse(res.value):b.data;}catch(e){}
 }
 
-function render(b){
+/* ---- ANA PANO render ---- */
+function renderMain(b){
   b.grid.innerHTML="";let filled=0;
   const amtTxt=b.amount.toLocaleString('tr-TR')+" ₺";
   for(let i=1;i<=b.total;i++){
@@ -377,8 +454,74 @@ function render(b){
   else{b.footEl.textContent=b.label;}
 }
 
+/* ---- 5 SÜTUN: yapı kur ---- */
+const columnsRoot=document.getElementById('columns');
+columnsDef.forEach(col=>{
+  col.data={};
+  const el=document.createElement('div');el.className="column";
+  el.innerHTML=`
+    <div class="col-head">
+      <button class="reset-btn" data-reset-col="${col.id}" title="Sütunu sıfırla">⟳</button>
+      <div class="col-title">${escapeHtml(col.title)}</div>
+      <div class="col-price">${col.amount.toLocaleString('tr-TR')} ₺ / satır</div>
+    </div>
+    <div class="col-count"><b data-col-count="${col.id}">0</b> / ${col.rows} doldu</div>
+    <div class="col-rows" data-col-rows="${col.id}"></div>`;
+  columnsRoot.appendChild(el);
+  col.rowsEl=el.querySelector(`[data-col-rows="${col.id}"]`);
+  col.countEl=el.querySelector(`[data-col-count="${col.id}"]`);
+});
+
+/* ---- 5 SÜTUN: storage ---- */
+async function loadColumn(col){
+  try{const res=await window.storage.get(col.key,true);col.data=res&&res.value?JSON.parse(res.value):{};}
+  catch(e){col.data={};}
+  renderColumn(col);
+  updateMultiTotals();
+}
+async function saveColumn(col){
+  try{await window.storage.set(col.key,JSON.stringify(col.data),true);}
+  catch(e){console.error("kayıt hatası",e);}
+}
+async function reloadColumnSilent(col){
+  try{const res=await window.storage.get(col.key,true);col.data=res&&res.value?JSON.parse(res.value):col.data;}catch(e){}
+}
+
+/* ---- 5 SÜTUN: render ---- */
+function renderColumn(col){
+  col.rowsEl.innerHTML="";let filled=0;
+  for(let i=1;i<=col.rows;i++){
+    const cell=document.createElement('div');cell.className="row-cell";
+    const name=col.data[i];
+    if(name){
+      filled++;cell.classList.add('filled');
+      cell.innerHTML=`<span class="ridx">${i}</span><span class="rname">${escapeHtml(name)}</span>`;
+      cell.title="Düzenle / sil";
+      cell.addEventListener('click',()=>openEditCol(col,i));
+    }else{
+      const amtTxt=col.amount.toLocaleString('tr-TR')+" ₺";
+      cell.innerHTML=`<span class="ridx">${i}</span><span class="ramt">${amtTxt}</span><span class="rhint">sponsor ol</span>`;
+      cell.addEventListener('click',()=>openModalCol(col,i));
+    }
+    col.rowsEl.appendChild(cell);
+  }
+  col.countEl.textContent=filled;
+}
+
+function updateMultiTotals(){
+  let filled=0,total=0,raised=0;
+  columnsDef.forEach(col=>{
+    total+=col.rows;
+    for(let i=1;i<=col.rows;i++){ if(col.data[i]){filled++;raised+=col.amount;} }
+  });
+  multiCountEl.textContent=filled;
+  multiRaisedEl.textContent=raised.toLocaleString('tr-TR')+" ₺ toplandı";
+  multiBarEl.style.width=(total?filled/total*100:0)+"%";
+}
+
+/* ---- MODAL (ortak) ---- */
 function openModal(b,i){
-  activeBoard=b;activeCell={i};
+  activeBoard={type:"main",ref:b};activeCell={i};
   document.getElementById('modalTitle').textContent="Sponsor Ol";
   boxNo.textContent=`Kutucuk #${i} — ${b.amount.toLocaleString('tr-TR')} ₺`;
   nameInput.value="";
@@ -387,10 +530,29 @@ function openModal(b,i){
   overlay.classList.add('open');setTimeout(()=>nameInput.focus(),50);
 }
 function openEdit(b,i){
-  activeBoard=b;activeCell={i,edit:true};
+  activeBoard={type:"main",ref:b};activeCell={i,edit:true};
   document.getElementById('modalTitle').textContent="İsmi Düzenle";
   boxNo.textContent=`Kutucuk #${i} — ${b.amount.toLocaleString('tr-TR')} ₺`;
   nameInput.value=b.data[i]||"";
+  document.getElementById('deleteBtn').style.display="block";
+  document.getElementById('confirmBtn').textContent="Güncelle";
+  overlay.classList.add('open');
+  setTimeout(()=>{nameInput.focus();nameInput.select();},50);
+}
+function openModalCol(col,i){
+  activeBoard={type:"col",ref:col};activeCell={i};
+  document.getElementById('modalTitle').textContent="Sponsor Ol";
+  boxNo.textContent=`${col.title} • Satır #${i} — ${col.amount.toLocaleString('tr-TR')} ₺`;
+  nameInput.value="";
+  document.getElementById('deleteBtn').style.display="none";
+  document.getElementById('confirmBtn').textContent="Kaydet";
+  overlay.classList.add('open');setTimeout(()=>nameInput.focus(),50);
+}
+function openEditCol(col,i){
+  activeBoard={type:"col",ref:col};activeCell={i,edit:true};
+  document.getElementById('modalTitle').textContent="İsmi Düzenle";
+  boxNo.textContent=`${col.title} • Satır #${i} — ${col.amount.toLocaleString('tr-TR')} ₺`;
+  nameInput.value=col.data[i]||"";
   document.getElementById('deleteBtn').style.display="block";
   document.getElementById('confirmBtn').textContent="Güncelle";
   overlay.classList.add('open');
@@ -401,26 +563,43 @@ function closeModal(){overlay.classList.remove('open');activeBoard=null;activeCe
 async function deleteFill(){
   if(!activeBoard||!activeCell)return;
   if(!confirm("Bu kutucuktaki isim silinecek ve kutucuk tekrar boşalacak. Emin misiniz?"))return;
-  const b=activeBoard;
-  await reloadSilent(b);
-  delete b.data[activeCell.i];
-  await saveBoard(b);
-  closeModal();render(b);
+  if(activeBoard.type==="main"){
+    const b=activeBoard.ref;
+    await reloadSilent(b);delete b.data[activeCell.i];await saveBoard(b);
+    closeModal();renderMain(b);
+  }else{
+    const col=activeBoard.ref;
+    await reloadColumnSilent(col);delete col.data[activeCell.i];await saveColumn(col);
+    closeModal();renderColumn(col);updateMultiTotals();
+  }
 }
 async function confirmFill(){
   if(!activeBoard||!activeCell)return;
-  const b=activeBoard;
   const name=nameInput.value.trim();
   if(!name){nameInput.focus();return;}
-  await reloadSilent(b);
-  if(!activeCell.edit && b.data[activeCell.i]){
-    alert("Bu kutucuk az önce başkası tarafından dolduruldu. Lütfen başka bir kutucuk seçin.");
-    closeModal();render(b);return;
+  if(activeBoard.type==="main"){
+    const b=activeBoard.ref;
+    await reloadSilent(b);
+    if(!activeCell.edit && b.data[activeCell.i]){
+      alert("Bu kutucuk az önce başkası tarafından dolduruldu. Lütfen başka bir kutucuk seçin.");
+      closeModal();renderMain(b);return;
+    }
+    b.data[activeCell.i]=name;await saveBoard(b);
+    const idx=activeCell.i;closeModal();renderMain(b);
+    const fc=b.grid.children[idx-1];
+    if(fc){fc.classList.add('justfilled');setTimeout(()=>fc.classList.remove('justfilled'),400);}
+  }else{
+    const col=activeBoard.ref;
+    await reloadColumnSilent(col);
+    if(!activeCell.edit && col.data[activeCell.i]){
+      alert("Bu satır az önce başkası tarafından dolduruldu. Lütfen başka bir satır seçin.");
+      closeModal();renderColumn(col);updateMultiTotals();return;
+    }
+    col.data[activeCell.i]=name;await saveColumn(col);
+    const idx=activeCell.i;closeModal();renderColumn(col);updateMultiTotals();
+    const fc=col.rowsEl.children[idx-1];
+    if(fc){fc.classList.add('justfilled');setTimeout(()=>fc.classList.remove('justfilled'),400);}
   }
-  b.data[activeCell.i]=name;await saveBoard(b);
-  const idx=activeCell.i;closeModal();render(b);
-  const fc=b.grid.children[idx-1];
-  if(fc){fc.classList.add('justfilled');setTimeout(()=>fc.classList.remove('justfilled'),400);}
 }
 
 document.getElementById('confirmBtn').addEventListener('click',confirmFill);
@@ -429,16 +608,27 @@ document.getElementById('cancelBtn').addEventListener('click',closeModal);
 overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal();});
 nameInput.addEventListener('keydown',e=>{if(e.key==='Enter')confirmFill();});
 
-document.querySelectorAll('.reset-btn').forEach(btn=>{
+/* ---- reset butonları ---- */
+document.querySelectorAll('[data-reset]').forEach(btn=>{
   btn.addEventListener('click',async()=>{
     const b=boards[btn.dataset.reset];
     if(confirm("Bu pano sıfırlanacak ve isimler silinecek. Emin misiniz?")){
-      b.data={};await saveBoard(b);render(b);
+      b.data={};await saveBoard(b);renderMain(b);
+    }
+  });
+});
+document.querySelectorAll('[data-reset-col]').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const col=columnsDef.find(c=>c.id===btn.dataset.resetCol);
+    if(confirm("Bu sütun sıfırlanacak ve isimler silinecek. Emin misiniz?")){
+      col.data={};await saveColumn(col);renderColumn(col);updateMultiTotals();
     }
   });
 });
 
+/* ---- başlat ---- */
 for(const id in boards){ loadBoard(boards[id]); }
+columnsDef.forEach(col=>loadColumn(col));
 </script>
 </body>
 </html>

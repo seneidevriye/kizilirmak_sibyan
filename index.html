@@ -44,6 +44,7 @@
     box-shadow:0 10px 30px var(--shadow);
     overflow:hidden;
   }
+  .right-col{display:flex;flex-direction:column;gap:22px}
 
   /* ---- SOL: HERO ---- */
   .hero{
@@ -253,21 +254,44 @@
     </div>
 
     <!-- ===== SAĞ SÜTUN ===== -->
-    <div class="panel">
-      <div class="board-head">
-        <button class="reset-btn" id="resetBtn" title="Panoyu sıfırla">⟳</button>
-        <h2>Sponsorluk Panosu</h2>
-        <p>Her kutucuk bir hayır — 100 kutucuk, 750 ₺</p>
-      </div>
-      <div class="progress">
-        <div class="progress-top">
-          <span class="count"><b id="filledCount">0</b> / 100 kutucuk doldu</span>
-          <span class="raised" id="raised">0 ₺ toplandı</span>
+    <div class="right-col">
+
+      <!-- PANO 1: Genel -->
+      <div class="panel">
+        <div class="board-head">
+          <button class="reset-btn" data-reset="main" title="Panoyu sıfırla">⟳</button>
+          <h2>Sponsorluk Panosu</h2>
+          <p>Her kutucuk bir hayır — 100 kutucuk, 750 ₺</p>
         </div>
-        <div class="bar"><span id="barFill"></span></div>
+        <div class="progress">
+          <div class="progress-top">
+            <span class="count"><b data-count="main">0</b> / 100 kutucuk doldu</span>
+            <span class="raised" data-raised="main">0 ₺ toplandı</span>
+          </div>
+          <div class="bar"><span data-bar="main"></span></div>
+        </div>
+        <div class="grid" data-grid="main"></div>
+        <div class="board-foot" data-foot="main">Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz.</div>
       </div>
-      <div class="grid" id="grid"></div>
-      <div class="board-foot" id="foot">Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz.</div>
+
+      <!-- PANO 2: Kur'an-ı Kerim -->
+      <div class="panel">
+        <div class="board-head">
+          <button class="reset-btn" data-reset="quran" title="Panoyu sıfırla">⟳</button>
+          <h2>Kur'an-ı Kerim Panosu</h2>
+          <p>Her kutucuk bir Kur'an-ı Kerim — 50 kutucuk, 500 ₺</p>
+        </div>
+        <div class="progress">
+          <div class="progress-top">
+            <span class="count"><b data-count="quran">0</b> / 50 kutucuk doldu</span>
+            <span class="raised" data-raised="quran">0 ₺ toplandı</span>
+          </div>
+          <div class="bar"><span data-bar="quran"></span></div>
+        </div>
+        <div class="grid" data-grid="quran"></div>
+        <div class="board-foot" data-foot="quran">Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz.</div>
+      </div>
+
     </div>
 
   </div>
@@ -290,102 +314,131 @@
 </div>
 
 <script>
-const TOTAL=100, AMOUNT=750, KEY="sponsor-board-v1";
-const grid=document.getElementById('grid');
 const overlay=document.getElementById('overlay');
 const nameInput=document.getElementById('nameInput');
 const boxNo=document.getElementById('boxNo');
-let data={}, activeCell=null;
 
-async function load(){
-  try{const res=await window.storage.get(KEY,true);data=res&&res.value?JSON.parse(res.value):{};}
-  catch(e){data={};}
-  render();
+// Her pano için yapılandırma
+const boards={
+  main:{ total:100, amount:750, key:"sponsor-board-v1",
+         label:"Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz." },
+  quran:{ total:50, amount:500, key:"sponsor-board-quran-v1",
+          label:"Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz." }
+};
+// çalışma durumu
+for(const id in boards){
+  const b=boards[id];
+  b.id=id;
+  b.data={};
+  b.grid=document.querySelector(`[data-grid="${id}"]`);
+  b.countEl=document.querySelector(`[data-count="${id}"]`);
+  b.raisedEl=document.querySelector(`[data-raised="${id}"]`);
+  b.barEl=document.querySelector(`[data-bar="${id}"]`);
+  b.footEl=document.querySelector(`[data-foot="${id}"]`);
 }
-async function save(){
-  try{await window.storage.set(KEY,JSON.stringify(data),true);}
+let activeBoard=null, activeCell=null;
+
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+async function loadBoard(b){
+  try{const res=await window.storage.get(b.key,true);b.data=res&&res.value?JSON.parse(res.value):{};}
+  catch(e){b.data={};}
+  render(b);
+}
+async function saveBoard(b){
+  try{await window.storage.set(b.key,JSON.stringify(b.data),true);}
   catch(e){console.error("kayıt hatası",e);}
 }
-function render(){
-  grid.innerHTML="";let filled=0;
-  for(let i=1;i<=TOTAL;i++){
+async function reloadSilent(b){
+  try{const res=await window.storage.get(b.key,true);b.data=res&&res.value?JSON.parse(res.value):b.data;}catch(e){}
+}
+
+function render(b){
+  b.grid.innerHTML="";let filled=0;
+  const amtTxt=b.amount.toLocaleString('tr-TR')+" ₺";
+  for(let i=1;i<=b.total;i++){
     const cell=document.createElement('div');cell.className="cell";
-    const name=data[i];
+    const name=b.data[i];
     if(name){
       filled++;cell.classList.add('filled');
       cell.innerHTML=`<span class="idx">${i}</span><span class="name">${escapeHtml(name)}</span>`;
       cell.title="Düzenle / sil";
-      cell.addEventListener('click',()=>openEdit(i));
+      cell.addEventListener('click',()=>openEdit(b,i));
     }else{
-      cell.innerHTML=`<span class="idx">${i}</span><span class="amt-tag">750 ₺</span><span class="hint">sponsor ol</span>`;
-      cell.addEventListener('click',()=>openModal(i,cell));
+      cell.innerHTML=`<span class="idx">${i}</span><span class="amt-tag">${amtTxt}</span><span class="hint">sponsor ol</span>`;
+      cell.addEventListener('click',()=>openModal(b,i));
     }
-    grid.appendChild(cell);
+    b.grid.appendChild(cell);
   }
-  document.getElementById('filledCount').textContent=filled;
-  document.getElementById('raised').textContent=(filled*AMOUNT).toLocaleString('tr-TR')+" ₺ toplandı";
-  document.getElementById('barFill').style.width=(filled/TOTAL*100)+"%";
-  const foot=document.getElementById('foot');
-  if(filled>=TOTAL){foot.innerHTML='<span class="done">Pano doldu — Allah razı olsun. 🤍</span>';}
-  else{foot.textContent="Boş bir kutucuğa dokunarak ismini yazabilir, sponsor olabilirsiniz.";}
+  b.countEl.textContent=filled;
+  b.raisedEl.textContent=(filled*b.amount).toLocaleString('tr-TR')+" ₺ toplandı";
+  b.barEl.style.width=(filled/b.total*100)+"%";
+  if(filled>=b.total){b.footEl.innerHTML='<span class="done">Pano doldu — Allah razı olsun. 🤍</span>';}
+  else{b.footEl.textContent=b.label;}
 }
-function openModal(i){
-  activeCell={i};
+
+function openModal(b,i){
+  activeBoard=b;activeCell={i};
   document.getElementById('modalTitle').textContent="Sponsor Ol";
-  boxNo.textContent=`Kutucuk #${i} — 750 ₺`;
+  boxNo.textContent=`Kutucuk #${i} — ${b.amount.toLocaleString('tr-TR')} ₺`;
   nameInput.value="";
   document.getElementById('deleteBtn').style.display="none";
   document.getElementById('confirmBtn').textContent="Kaydet";
   overlay.classList.add('open');setTimeout(()=>nameInput.focus(),50);
 }
-function openEdit(i){
-  activeCell={i,edit:true};
+function openEdit(b,i){
+  activeBoard=b;activeCell={i,edit:true};
   document.getElementById('modalTitle').textContent="İsmi Düzenle";
-  boxNo.textContent=`Kutucuk #${i} — 750 ₺`;
-  nameInput.value=data[i]||"";
+  boxNo.textContent=`Kutucuk #${i} — ${b.amount.toLocaleString('tr-TR')} ₺`;
+  nameInput.value=b.data[i]||"";
   document.getElementById('deleteBtn').style.display="block";
   document.getElementById('confirmBtn').textContent="Güncelle";
   overlay.classList.add('open');
   setTimeout(()=>{nameInput.focus();nameInput.select();},50);
 }
-function closeModal(){overlay.classList.remove('open');activeCell=null;}
+function closeModal(){overlay.classList.remove('open');activeBoard=null;activeCell=null;}
+
 async function deleteFill(){
-  if(!activeCell)return;
+  if(!activeBoard||!activeCell)return;
   if(!confirm("Bu kutucuktaki isim silinecek ve kutucuk tekrar boşalacak. Emin misiniz?"))return;
-  await load2silent();
-  delete data[activeCell.i];
-  await save();
-  closeModal();render();
+  const b=activeBoard;
+  await reloadSilent(b);
+  delete b.data[activeCell.i];
+  await saveBoard(b);
+  closeModal();render(b);
 }
 async function confirmFill(){
-  if(!activeCell)return;
+  if(!activeBoard||!activeCell)return;
+  const b=activeBoard;
   const name=nameInput.value.trim();
   if(!name){nameInput.focus();return;}
-  await load2silent();
-  // yeni ekleme sırasında çakışma kontrolü (düzenlemede değil)
-  if(!activeCell.edit && data[activeCell.i]){
+  await reloadSilent(b);
+  if(!activeCell.edit && b.data[activeCell.i]){
     alert("Bu kutucuk az önce başkası tarafından dolduruldu. Lütfen başka bir kutucuk seçin.");
-    closeModal();render();return;
+    closeModal();render(b);return;
   }
-  data[activeCell.i]=name;await save();
-  const idx=activeCell.i;closeModal();render();
-  const fc=grid.children[idx-1];
+  b.data[activeCell.i]=name;await saveBoard(b);
+  const idx=activeCell.i;closeModal();render(b);
+  const fc=b.grid.children[idx-1];
   if(fc){fc.classList.add('justfilled');setTimeout(()=>fc.classList.remove('justfilled'),400);}
 }
-async function load2silent(){
-  try{const res=await window.storage.get(KEY,true);data=res&&res.value?JSON.parse(res.value):data;}catch(e){}
-}
-function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
 document.getElementById('confirmBtn').addEventListener('click',confirmFill);
 document.getElementById('deleteBtn').addEventListener('click',deleteFill);
 document.getElementById('cancelBtn').addEventListener('click',closeModal);
 overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal();});
 nameInput.addEventListener('keydown',e=>{if(e.key==='Enter')confirmFill();});
-document.getElementById('resetBtn').addEventListener('click',async()=>{
-  if(confirm("Tüm pano sıfırlanacak ve isimler silinecek. Emin misiniz?")){data={};await save();render();}
+
+document.querySelectorAll('.reset-btn').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const b=boards[btn.dataset.reset];
+    if(confirm("Bu pano sıfırlanacak ve isimler silinecek. Emin misiniz?")){
+      b.data={};await saveBoard(b);render(b);
+    }
+  });
 });
-load();
+
+for(const id in boards){ loadBoard(boards[id]); }
 </script>
 </body>
 </html>
